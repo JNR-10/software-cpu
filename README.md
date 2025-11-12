@@ -93,8 +93,8 @@ Located at:
 
 ---
 
-## 🗂️ Directory Structure
-
+### 📁 Directory Structure
+```bash
 software-cpu/
 ├── README.md
 ├── .gitignore
@@ -152,9 +152,6 @@ software-cpu/
 └── video/
     └── demo_fibonacci.mp4
 
-
-
----
 
 ## 🚀 Build & Run Instructions
 
