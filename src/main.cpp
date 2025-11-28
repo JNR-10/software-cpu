@@ -1,42 +1,43 @@
 #include <cstdint>
+#include <fstream>
 #include <iostream>
+#include <iterator>
 #include <string>
 #include <vector>
-#include "emulator/cpu.hpp"
+
 #include "assembler/assembler.hpp"
+int main(int argc, char** argv) {
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <input.asm> <output.bin>\n";
+        return 1;
+    }
 
-int main() {
-    // Countdown loop demo in assembly (no labels, using byte addresses).
-    // Each instruction is 4 bytes, so instruction N starts at address 4 * N.
-    // Layout:
-    //   addr 0:  LOADI R0, 3       ; R0 = 3  (loop counter)
-    //   addr 4:  LOADI R1, 1       ; R1 = 1  (amount to subtract)
-    //   addr 8:  SUB   R0, R1      ; LOOP: R0 = R0 - 1, updates ZR flag
-    //   addr 12: JZ    20          ; if ZR == 1 (R0 == 0), jump to END at 20
-    //   addr 16: JMP   8           ; otherwise, jump back to LOOP at 8
-    //   addr 20: HLT               ; END: stop execution
-    // This means the loop executes exactly 3 times, taking R0 from 3 -> 2 -> 1 -> 0.
-    std::string source =
-        "LOADI R0, 3\n"
-        "LOADI R1, 1\n"
-        "SUB R0, R1\n"
-        "JZ 20\n"   // correct END address for HLT
-        "JMP 8\n"
-        "HLT\n";
+    const std::string input_path = argv[1];
+    const std::string output_path = argv[2];
 
-    std::vector<std::uint8_t> program = assemble(source);
+    std::ifstream in(input_path);
+    if (!in) {
+        std::cerr << "Failed to open input file: " << input_path << "\n";
+        return 1;
+    }
 
-    CPU cpu;
-    cpu.load_program(program.data(), program.size(), 0x0000);
+    std::string source((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
 
-    cpu.run();
+    std::vector<std::uint8_t> bytes;
+    try {
+        bytes = assemble(source);
+    } catch (const std::exception& ex) {
+        std::cerr << "Assembly error: " << ex.what() << "\n";
+        return 1;
+    }
 
-    const Registers& regs = cpu.regs();
-    std::cout << "R0 = " << regs.R0 << "\n";
-    std::cout << "R1 = " << regs.R1 << "\n";
-    std::cout << "ZR = " << regs.ZR << "\n";
-    std::cout << "PC = " << regs.PC << "\n";
-    std::cout << "halted = " << regs.halted << "\n";
+    std::ofstream out(output_path, std::ios::binary);
+    if (!out) {
+        std::cerr << "Failed to open output file: " << output_path << "\n";
+        return 1;
+    }
 
+    out.write(reinterpret_cast<const char*>(bytes.data()), static_cast<std::streamsize>(bytes.size()));
+    std::cout << "Wrote " << bytes.size() << " bytes to " << output_path << "\n";
     return 0;
 }
