@@ -6,11 +6,11 @@
 *.a
 *.so
 *.dll
+*.app
 
-# Build directories
-# /build/
-# /bin/
-# /dist/
+Build directories
+build/
+bin/
 
 # Editor and OS files
 .vscode/
