@@ -27,6 +27,7 @@ sudo apt-get install -y dos2unix
 
 # Run the complete interactive demo
 chmod +x demo.sh
+dos2unix ./scripts/*.sh
 dos2unix ./demo.sh
 ./demo.sh
 ```
