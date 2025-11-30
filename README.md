@@ -22,8 +22,12 @@ git clone <https://github.com/JNR-10/software-cpu>
 cd software-cpu
 
 #Download these dependices
-sudo apt-get install -y jq
-sudo apt-get install -y dos2unix
+WSL:
+  sudo apt-get install -y jq
+  sudo apt-get install -y dos2unix
+Mac:
+  brew install jq 
+  brew install dos2unix
 
 # Run the complete interactive demo
 chmod +x demo.sh
