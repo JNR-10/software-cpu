@@ -196,7 +196,8 @@ dos2unix ./scripts/run_general.sh tests/assembly/test_integration.asm
 dos2unix ./scripts/run_general.sh tests/assembly/test_error.asm
 ./scripts/run_general.sh tests/assembly/test_error.asm
 ```
----
-#Live Project Demo (Google Drive)
-##Due to the large file size, the demo video has been shared via Google Drive.
+ ---
+# Live Project Demo (Google Drive)
+## Due to the large file size, the demo video has been shared via Google Drive.
 https://drive.google.com/drive/folders/1WXGD3DoWew3UzMFoogyRmkAdpkCSQswJ?usp=share_link
+
