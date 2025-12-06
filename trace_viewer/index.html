@@ -36,6 +36,7 @@
       </div>
       <!-- Dashboard now includes controls as a panel -->
       <div class="dashboard">
+        <!-- Row 1: 5 panels side by side -->
         <div class="panel registers-panel">
           <h3>📊 Registers & Flags</h3>
           <div id="registers"></div>
@@ -44,20 +45,30 @@
           <h3>⚙️ Current Instruction</h3>
           <div id="instr"></div>
         </div>
-        <div class="panel memory-panel">
+        <div class="panel stack-panel">
+          <h3>📚 Stack Memory (Recursion Depth)</h3>
+          <div id="stack-view"></div>
+        </div>
+        <div class="panel memory-panel-row1">
           <h3>💾 Memory Operations</h3>
           <div id="mem"></div>
         </div>
         <div class="panel button-panel">
           <h3>⚙️ Controls</h3>
           <div class="control-panel">
-            <div class="playback-controls">
-              <button id="first-btn" class="control-btn" title="First Cycle">⏮️</button>
-              <button id="prev-btn" class="control-btn" title="Previous Cycle">⏪</button>
-              <button id="play-pause-btn" class="control-btn primary" title="Play/Pause">▶️ Run</button>
-              <button id="next-btn" class="control-btn" title="Next Cycle">⏩</button>
-              <button id="last-btn" class="control-btn" title="Last Cycle">⏭️</button>
-              <button id="reset-btn" class="control-btn danger" title="Reset to Start">🔄 Reset</button>
+            <div class="playback-controls-improved">
+              <div class="control-row">
+                <button id="first-btn" class="control-btn" title="First Cycle">⏮️</button>
+                <button id="prev-btn" class="control-btn" title="Previous Cycle">⏪</button>
+                <button id="next-btn" class="control-btn" title="Next Cycle">⏩</button>
+                <button id="last-btn" class="control-btn" title="Last Cycle">⏭️</button>
+              </div>
+              <div class="control-row">
+                <button id="play-pause-btn" class="control-btn primary" title="Play/Pause">▶️ Run</button>
+              </div>
+              <div class="control-row">
+                <button id="reset-btn" class="control-btn danger" title="Reset to Start">🔄 Reset</button>
+              </div>
             </div>
             <div class="speed-control">
               <label for="speed-select">Speed:</label>
@@ -72,24 +83,26 @@
             </div>
           </div>
         </div>
-        <!-- End of dashboard row -->
-        <div class="slider-section">
+
+        <!-- Compact slider section - full width -->
+        <div class="slider-section-compact">
           <div class="slider-container">
-            <label for="slider">Execution Cycle</label>
             <input id="slider" type="range" min="0" max="0" value="0" />
           </div>
           <div class="cycle-display">
             <span id="cycle">Cycle: 0 / 0</span>
           </div>
         </div>
-        <div class="panel code-panel">
+
+        <!-- Row 2-3: Program Code (left) and Memory Layout (right) -->
+        <div class="panel code-panel-large">
           <h3>📝 Program Code</h3>
           <div id="code-view"></div>
         </div>
-      </div>
-      <div class="execution-log-panel">
-        <h3>📜 Execution History (Last 10 Instructions)</h3>
-        <div id="execution-log"></div>
+        <div class="panel memory-layout-panel-side">
+          <h3>🗺️ Memory Layout</h3>
+          <div id="memory-layout"></div>
+        </div>
       </div>
     </div>
   </div>

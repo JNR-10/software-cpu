@@ -235,15 +235,26 @@ h3 {
     margin-bottom: 30px;
 }
 
-.playback-controls {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.playback-controls-improved {
+    display: flex;
+    flex-direction: column;
     gap: 8px;
     margin-bottom: 12px;
 }
 
+.control-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+
+.control-row:nth-child(2),
+.control-row:nth-child(3) {
+    grid-template-columns: 1fr;
+}
+
 .control-btn {
-    padding: 6px 8px;
+    padding: 8px 10px;
     border: 2px solid var(--border-color);
     border-radius: 6px;
     background: white;
@@ -312,26 +323,29 @@ h3 {
     font-weight: 600;
 }
 
-.slider-section {
+/* Compact slider section */
+.slider-section-compact {
     background: white;
-    padding: 12px 20px;
-    border-radius: 12px;
-    margin-bottom: 15px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
     border: 2px solid var(--border-color);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.slider-container {
-    margin-bottom: 8px;
+.slider-section-compact .slider-container {
+    flex: 1;
+    margin: 0;
 }
 
-.slider-container label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--text-main);
+.slider-section-compact .cycle-display {
+    min-width: 150px;
+    text-align: right;
+    margin: 0;
 }
 
 input[type=range] {
@@ -341,6 +355,7 @@ input[type=range] {
     background: var(--border-color);
     outline: none;
     -webkit-appearance: none;
+    appearance: none;
     cursor: pointer;
 }
 
@@ -371,20 +386,19 @@ input[type=range]::-moz-range-thumb {
 }
 
 .cycle-display {
-    text-align: center;
     font-family: 'Monaco', 'Consolas', monospace;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: bold;
     color: var(--primary-color);
-    padding: 6px;
+    padding: 4px 8px;
     background: var(--accent-bg);
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
-/* Dashboard Layout */
+/* Dashboard Layout - New structure */
 .dashboard {
     display: grid;
-    grid-template-columns: 1fr 1fr 0.8fr 200px;
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     margin-bottom: 20px;
 }
@@ -588,20 +602,20 @@ li:last-child {
 /* Code View */
 .code-panel {
     grid-column: 1 / -1;
-    min-height: 200px;
+    min-height: 180px;
     margin-top: 0;
 }
 
 #code-view {
     font-family: 'Monaco', 'Consolas', monospace;
-    font-size: 0.85rem;
-    min-height: 250px;
-    max-height: 280px;
+    font-size: 0.75rem;
+    min-height: 180px;
+    max-height: 220px;
     overflow-y: auto;
     background: #1e293b;
     color: #e2e8f0;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 8px;
+    border-radius: 6px;
     border: 1px solid #334155;
     position: relative;
 }
@@ -699,4 +713,150 @@ li:last-child {
 .speed-control select:focus {
     outline: none;
     border-color: var(--primary-color);
+}
+
+/* Stack Memory View - Fixed height, no expansion */
+#stack-view {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.8rem;
+    max-height: 220px;
+    height: 220px;
+    overflow-y: auto;
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+}
+
+.stack-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 8px;
+    margin: 2px 0;
+    border-radius: 4px;
+    background: rgba(100, 116, 139, 0.2);
+}
+
+.stack-entry:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.stack-entry.sp-location {
+    background: rgba(16, 185, 129, 0.3);
+    border-left: 3px solid var(--success-color);
+    font-weight: bold;
+}
+
+.stack-addr {
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.stack-value {
+    color: #60a5fa;
+    font-weight: bold;
+}
+
+.stack-label {
+    color: var(--success-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Memory Operations in Row 1 (4th column - swapped with Controls) */
+.memory-panel-row1 {
+    grid-column: 4 / 5;
+    grid-row: 1;
+}
+
+.memory-panel-row1 #mem {
+    max-height: 220px;
+    height: 220px;
+    overflow-y: auto;
+    font-size: 0.75rem;
+}
+
+/* Controls in Row 1 (5th column - swapped with Memory Operations) */
+.button-panel {
+    grid-column: 5 / 6;
+    grid-row: 1;
+}
+
+#memory-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.7rem;
+}
+
+.memory-segment {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.memory-segment:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.memory-segment h4 {
+    margin: 0 0 6px 0;
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.memory-segment-info {
+    color: #1e293b;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.memory-segment-info strong {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.memory-segment.active {
+    border-color: var(--success-color);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%);
+}
+
+.memory-segment.active h4 {
+    color: var(--success-color);
+}
+
+/* Program Code - Large, left side, spanning rows 2-3 */
+.code-panel-large {
+    grid-column: 1 / 5;
+    grid-row: 3 / 5;
+    min-height: 400px;
+}
+
+.code-panel-large #code-view {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.75rem;
+    min-height: 400px;
+    max-height: 450px;
+    overflow-y: auto;
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+    position: relative;
+}
+
+/* Memory Layout - Right side, spanning rows 2-3 */
+.memory-layout-panel-side {
+    grid-column: 5 / 6;
+    grid-row: 3 / 5;
+    min-height: 400px;
 }

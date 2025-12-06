@@ -61,6 +61,9 @@ echo "  → Creating Hello World trace..."
 echo "  → Creating Timer example trace..."
 ./scripts/run_general_with_trace.sh src/programs/timer_example.asm Timer_example.json
 
+echo "  → Creating Factorial (recursive) trace..."
+./scripts/run_general_with_trace.sh src/programs/factorial.asm Factorial_recursive.json
+
 echo "  → Creating integration test trace..."
 ./scripts/run_general_with_trace.sh tests/assembly/test_integration.asm Integration_test.json
 
